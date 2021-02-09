@@ -1,0 +1,9 @@
+.atab {
+    color:green;
+	white-space: pre;
+	cellspacing: 3em 1em;
+	boarder-collapse: separate;
+}
+body {color:purple;}
+
+h1 {color:orange;}

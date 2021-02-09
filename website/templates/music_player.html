@@ -1,0 +1,63 @@
+{%extends "base.html"%}
+{%block title%}music_player{%endblock%}
+{%block content%}
+
+<form action="" method="POST">
+    <div align="center">
+        <button type="submit" name="stop" id="stop" value="stop" class="btn btn-primary">STOP</button>
+    </div>
+</form>
+<br><hr><br>
+<h3>title_loading: {{play}}</h3>
+{%if play != None%}
+<audio controls>
+    <source src="{{ url_for('static', filename=play)}}" type="audio/mp3"/>
+</audio>
+
+{%endif%}
+<br/><hr><br>
+
+<table id="gradient-style" cellspacing="0" cellpadding="10">
+    <thead>
+    <tr>
+        <th scope="col">Title</th>
+        <th scope="col">play_Lokal</th>
+        <th scope="col">play_on_Host</th>
+        {%if user.id == 1%}
+        <th scope="col">Delete_Music</th>
+        {%endif%}
+    </tr>
+    </thead>
+    <tbody>
+    {%for entry in entries%}
+    <tr>
+        <td>{{entry.title}}</td>
+        <td>
+            <form action="" method="POST">
+                <button type="submit" class="btn btn-primary" id="play_music" name="play_music" value="{{entry.id}}">
+                    Play_in_Browser
+                </button>
+            </form>
+        </td>
+        <td>
+            <form action="" method="POST">
+                <div align="left">
+                    <button type="submit" name="music" value={{entry.id}} class="btn btn-primary">Play
+                    </button>
+                </div>
+            </form>
+        </td>
+        {%if user.id == 1%}
+        <td>
+            <button type="button" class="close" onClick="deleteMusic({{ entry.id }})">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </td>
+        {%endif%}
+
+    </tr>
+    {%endfor%}
+    </tbody>
+</table>
+
+{%endblock%}

@@ -1,0 +1,70 @@
+{%extends "base.html"%}<!-- <- koperrt alles aus base.html hier rein und alle block x bis endblock können ersetzt werden-->
+
+{%block title%} Home_Home{%endblock%}
+{%block content%}
+
+<h1 align="center">NOTE</h1>
+
+
+<form method="POST">
+    <textarea name="note" id="note" class="form-control"></textarea>
+    <br/>
+    <div align="center">
+        <button type="submit" class="btn btn-primary">Add Note</button>
+    </div>
+</form>
+<table id="gradient-style" cellspacing="0" cellpadding="10">
+    <thead>
+    <tr>
+        <th scope="col">Note</th>
+        <th scope="col">date</th>
+        <th scope="col">Id</th>
+        <th scope="col">Delete_Note</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for note in user.notes %}
+    <tr>
+        <td>{{note.data}}</td>
+        <td>{{note.date}}</td>
+        <td> {{note.id}}</td>
+        <td align="right">
+            <button type="button" class="close" onClick="deleteNote({{ note.id }})">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </td>
+    </tr>
+    {%endfor%}
+    </tbody>
+</table>
+<br/>
+<table id="gradient-style" cellspacing="0" cellpadding="10">
+    <thead>
+    <tr>
+        <th scope="col">User</th>
+        <th scope="col">Note</th>
+        <th scope="col">Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for item in values_user%}
+    {% if item.id != user.id%}
+    {%if item.notes|length > 0 %}
+    {%for note in item.notes%}
+    <tr>
+
+        <td>{{item.first_name}}</td>
+        <td>{{note.data}}</td>
+        <td>{{note.date}}</td>
+
+
+        {%endfor%}
+        {%endif%}
+        {%endif%}
+    </tr>
+    {%endfor%}
+
+    </tbody>
+</table>
+
+{%endblock%}

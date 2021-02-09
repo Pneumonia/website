@@ -1,0 +1,55 @@
+{%extends "base.html"%}
+{%block  title%}user_list{%endblock%}
+{%block content%}
+    {% for item in values_user%}
+<table id="gradient-style" cellpadding="10" cellspacing="0">
+    <thead>
+    <tr>
+        <th scope="col">User</th>
+        <th scope="col">Email</th>
+        <th scope="col"> Id</th>
+        <th scope="col">delete_User</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>{{item.first_name}}</td>
+        <td>{{item.email}}</td>
+        <td> {{item.id}}</td>
+        <td>
+            <button type="button" class="close" onclick="deleteUser({{item.id}})">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </td>
+    </tr>
+    {%if item.notes|length > 0 %}
+    <table id="gradient-style" cellspacing="0" cellpadding="10">
+        <thead>
+        <tr>
+            <th scope="col">Note</th>
+            <th scope="col">Date</th>
+            <th scope="col">Id</th>
+            <th scope="col">Delete_Note</th>
+        </tr>
+        </thead>
+        <tbody>
+        {%for note in item.notes%}
+        <tr>
+            <td>{{note.data}}</td>
+            <td>{{note.date}}</td>
+            <td>{{note.id}}</td>
+            <td>
+                <button type="button" class="close" onClick="deleteNoteAdmin({{ note.id }})">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </td>
+        </tr>
+        {%endfor%}
+        </tbody>
+    </table>
+    <br><hr><br>
+    {%endif%}
+    {%endfor%}
+    </tbody>
+</table>
+{%endblock%}
